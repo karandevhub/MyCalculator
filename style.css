@@ -47,7 +47,7 @@ form .display input{
     font-size: 45px;
 }
 
-.equal{
+form input.equal{
     width: 145px;
     background: #3a4452;
 }
