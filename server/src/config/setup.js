@@ -3,7 +3,7 @@ import AdminJSFastify from "@adminjs/fastify";
 import * as AdminJSMongoose from "@adminjs/mongoose";
 import * as Models from "../models/index.js";
 import { COOKIE_PASSWORD, sessionStore, authenticate } from "./config.js";
-
+import { dark, light, noSidebar } from "@adminjs/themes";
 AdminJS.registerAdapter(AdminJSMongoose);
 
 export const admin = new AdminJS({
@@ -25,8 +25,8 @@ export const admin = new AdminJS({
     {
       resource: Models.Admin,
       options: {
-        listProperties: ["phone", "role", "isActivated"],
-        filterProperties: ["phone", "role"],
+        listProperties: ["email", "role", "isActivated"],
+        filterProperties: ["email", "role"],
       },
     },
     {
@@ -36,7 +36,11 @@ export const admin = new AdminJS({
   branding: {
     companyName: "Qwikzo",
     withMadeWithLove: false,
+    favicon: "",
+    logo: "",
   },
+  defaultTheme: dark.id,
+  availableThemes: [dark, light, noSidebar],
   rootPath: "/admin",
 });
 

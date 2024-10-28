@@ -19,7 +19,7 @@ const customerSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ["Customer"], default: "Customer" },
-  phone: { type: String, required: true, uniqueq: true },
+  phone: { type: String, required: true, unique: true },
   liveLocation: {
     latitude: { type: Number },
     longitude: { type: Number },
@@ -34,7 +34,7 @@ const deliveryPartnerSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   role: { type: String, enum: ["DeliveryPartner"], default: "DeliveryPartner" },
-  phone: { type: String, required: true, uniqueq: true },
+  phone: { type: String, required: true, unique: true },
   liveLocation: {
     latitude: { type: Number },
     longitude: { type: Number },

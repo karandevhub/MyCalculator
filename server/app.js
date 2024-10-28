@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import "dotenv/config";
 import { connectDB } from "./src/config/connect.js";
-import { buildAdminRouter } from "./src/config/setup.js";
+import { admin, buildAdminRouter } from "./src/config/setup.js";
 
 const start = async () => {
   await connectDB(process.env.DATABASE_URI);
@@ -12,7 +12,7 @@ const start = async () => {
     if (err) {
       console.error(err);
     } else {
-      console.log(`Server is running at http://localhost:${PORT}`);
+      console.log(`Server is running at http://localhost:${PORT}${admin.options.rootPath}`);
     }
   });
 };
