@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 // Base User Schema
 
 const userSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: { type: String },
   role: {
     type: String,
     enum: ["Customer", "Admin", "DeliveryPartner"],
@@ -16,8 +16,8 @@ const userSchema = new mongoose.Schema({
 
 const customerSchema = new mongoose.Schema({
   ...userSchema.obj,
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  email: { type: String, unique: true, sparse: true },
+  password: { type: String },
   role: { type: String, enum: ["Customer"], default: "Customer" },
   phone: { type: String, required: true, unique: true },
   liveLocation: {
@@ -55,7 +55,9 @@ const adminSchema = new mongoose.Schema({
   role: { type: String, enum: ["Admin"], default: "Admin" },
 });
 
-
-export const Customer = mongoose.model("Customer", customerSchema)
-export const DeliveryPartner = mongoose.model("DeliveryPartner",deliveryPartnerSchema)
-export const Admin = mongoose.model("Admin",adminSchema)
+export const Customer = mongoose.model("Customer", customerSchema);
+export const DeliveryPartner = mongoose.model(
+  "DeliveryPartner",
+  deliveryPartnerSchema
+);
+export const Admin = mongoose.model("Admin", adminSchema);
