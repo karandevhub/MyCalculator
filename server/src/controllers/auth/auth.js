@@ -111,7 +111,7 @@ export const refreshToken = async (req, reply) => {
 };
 
 export const fetchUser = async (req, reply) => {
-  const { userId, role } = req.body;
+  const { userId, role } = req.user;
   try {
     let user;
 
