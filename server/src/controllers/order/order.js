@@ -58,7 +58,7 @@ export const confirmOrder = async (req, reply) => {
       longitude: deliveryPersonLocation.longitude,
       address: deliveryPersonLocation.address || "No address available",
     };
-
+    req.server.io.to(orderId).emit("orderConfirmed", order);
     await order.save();
     return reply.status(200).send(order);
   } catch (error) {
@@ -89,6 +89,7 @@ export const updateOrderStatus = async (req, reply) => {
         .send({ message: "You are not authorized to update this order" });
     order.status = status;
     order.deliveryPersonLocation = deliveryPersonLocation;
+    req.server.io.to(orderId).emit("liveTrackingUpdates", order);
     return reply.status(200).send(order);
   } catch (error) {
     return reply.status(500).send({ message: "failed to update order status" });
