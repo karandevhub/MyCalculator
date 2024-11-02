@@ -1,9 +1,9 @@
-import { createOrder, getOrders, updateOrderStatus } from "../controllers/order/order.js";
+import { confirmOrder, createOrder, getOrderById, getOrders, updateOrderStatus } from "../controllers/order/order.js";
 import { verifytoken } from "../middleware/auth.js";
 
-export const orderRoutes = async (fastify, optinons) => {
+export const orderRoutes = async (fastify, options) => {
   fastify.addHook("preHandler", async (req, res) => {
-    const isAuthenticated = verifytoken(req, res);
+    const isAuthenticated = await verifytoken(req, res);
     if (!isAuthenticated) {
       return res.status(401).send({ message: "Unauthorized" });
     }
@@ -12,5 +12,6 @@ export const orderRoutes = async (fastify, optinons) => {
   fastify.post("/order", createOrder);
   fastify.get("/order", getOrders);
   fastify.patch("/order/:orderId/status", updateOrderStatus);
-  fastify.post("/order", createOrder);
+  fastify.post("/order/:orderId/confirm", confirmOrder);
+  fastify.get("/order/:orderId", getOrderById);
 };

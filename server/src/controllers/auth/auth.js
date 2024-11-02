@@ -21,21 +21,18 @@ export const loginCustomer = async (req, reply) => {
   try {
     const { phone } = req.body;
     let customer = await Customer.findOne({ phone });
-    let newCustomer;
 
     if (!customer) {
-      newCustomer = new Customer({
+      customer = new Customer({
         phone: phone,
         role: "Customer",
         isActivated: true,
       });
 
-      await newCustomer.save();
+      await customer.save();
     }
 
-    const { accessToken, refreshToken } = generateToken(
-      newCustomer || customer
-    );
+    const { accessToken, refreshToken } = generateToken(customer);
     return reply.send({
       message: customer ? "Login Successfully" : "user created and logged in",
       accessToken,
