@@ -1,3 +1,21 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "types": ["jest"],
+    "typeRoots": ["node_modules/@types", "src/types"],  // tells TypeScript where to look for type definitions
+    "baseUrl": "./src",  // allows importing modules from src folder without specifying the path
+    "paths": {
+      "@assets/*": ["assets/*"], 
+      "@components/*": ["components/*"],  
+      "@features/*": ["features/*"], 
+      "@navigation/*": ["navigation/*"],  
+      "@patches/*": ["patches/*"], 
+      "@service/*": ["service/*"],  
+      "@state/*": ["state/*"], 
+      "@styles/*": ["styles/*"],  
+      "@types/*": ["types/*"],  
+      "@utils/*": ["utils/*"],
+      "@/*": ["*"] 
+    }
+  }
 }
