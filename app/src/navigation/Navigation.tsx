@@ -28,7 +28,7 @@ const Navigation: FC = () => {
           options={{
             animation: 'fade',
           }}
-          name="Deliverylogin"
+          name="DeliveryLogin"
           component={DeliveryLogin}
         />
       </Stack.Navigator>
