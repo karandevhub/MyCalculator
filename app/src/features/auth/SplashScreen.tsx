@@ -32,7 +32,7 @@ const SplashScreen: FC = () => {
     const fetchUserLoaction = () => {
       try {
         Geolocation.requestAuthorization();
-        tokenCheck()
+        tokenCheck();
       } catch (error) {
         Alert.alert(
           'Sorry we need location service to give you better shopping experience',
