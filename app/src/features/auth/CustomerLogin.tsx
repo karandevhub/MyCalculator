@@ -1,4 +1,12 @@
-import { View, StyleSheet, Animated, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Animated,
+  Image,
+  SafeAreaView,
+  Keyboard,
+  Alert,
+} from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import {
   GestureHandlerRootView,
@@ -12,9 +20,13 @@ import ProductSlider from '@components/login/ProductSlider';
 import { resetAndNavigate } from '@utils/NavigationUtils';
 import CustomInput from '@components/ui/CustomInput';
 import CustomText from '@components/ui/CustomText';
-import { Fonts } from '@utils/Constants';
+import { Colors, Fonts, lightColors } from '@utils/Constants';
 import CustomButton from '@components/ui/CustomButton';
 import useKeyboardOffsetHeight from '@utils/useKeyboardOffsetHeight';
+import { RFValue } from 'react-native-responsive-fontsize';
+import LinearGradient from 'react-native-linear-gradient';
+import { CustomerLoginApi } from '@service/authsService/authService';
+const bottomColors = [...lightColors].reverse();
 
 const CustomerLogin = () => {
   const [gestureSequence, setGestureSequence] = useState<string[]>([]);
@@ -22,7 +34,7 @@ const CustomerLogin = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const keyboardOffsetHeight = useKeyboardOffsetHeight();
   console.log(keyboardOffsetHeight);
-  const animatedValue = useRef(new Animated.Value(0)).current;  // will use later
+  const animatedValue = useRef(new Animated.Value(0)).current; // will use later
 
   useEffect(() => {
     if (keyboardOffsetHeight == 0) {
@@ -60,6 +72,20 @@ const CustomerLogin = () => {
       }
     }
   };
+
+  const handleAuth = async () => {
+    Keyboard.dismiss();
+    setLoading(true);
+    try {
+      await CustomerLoginApi(phoneNumber);
+      resetAndNavigate('ProductDashboard');
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Login Failed');
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <GestureHandlerRootView style={styles.container}>
       <View style={styles.container}>
@@ -72,6 +98,7 @@ const CustomerLogin = () => {
               keyboardShouldPersistTaps="handled"
               contentContainerStyle={styles.subContainer}
             >
+              <LinearGradient colors={bottomColors} style={styles.gradient} />
               <View style={styles.content}>
                 <Image
                   source={require('@assets/images/logo.png')}
@@ -114,6 +141,13 @@ const CustomerLogin = () => {
             </Animated.ScrollView>
           </PanGestureHandler>
         </CustomSafeAreaView>
+        <View style={styles.footer}>
+          <SafeAreaView>
+            <CustomText fontSize={RFValue(6)}>
+              By Continuing, you are agreeing to our Terms of Service & Privacy
+            </CustomText>
+          </SafeAreaView>
+        </View>
       </View>
     </GestureHandlerRootView>
   );
@@ -149,6 +183,23 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingHorizontal: 20,
     paddingVertical: 30,
+  },
+  footer: {
+    borderWidth: 0.8,
+    borderColor: Colors.border,
+    padding: 10,
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 10,
+    backgroundColor: '#f8f9fc',
+    width: '100%',
+  },
+  gradient: {
+    paddingTop: 60,
+    width: '100%',
   },
 });
 

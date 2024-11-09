@@ -5,6 +5,7 @@ import { admin, buildAdminRouter } from "./src/config/setup.js";
 import { DATABASE_URI, PORT } from "./src/config/config.js";
 import { registerRoutes } from "./src/routes/index.js";
 import fastifySocketIO from "fastify-socket.io";
+import fastifyCors from "@fastify/cors";
 
 const start = async () => {
   await connectDB(DATABASE_URI, {
@@ -12,6 +13,11 @@ const start = async () => {
     connectTimeoutMS: 30000,
   });
   const app = fastify();
+  app.register(fastifyCors, { 
+    origin: "*", 
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+  });
+  
   app.register(fastifySocketIO, {
     cors: {
       origin: "*",  

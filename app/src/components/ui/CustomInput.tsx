@@ -45,10 +45,6 @@ const CustomInput: FC<InputProps & React.ComponentProps<typeof TextInput>> = ({
 };
 
 const styles = StyleSheet.create({
-  text: {
-    width: '10%',
-    marginLeft: 10,
-  },
   flexRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
