@@ -49,7 +49,7 @@ const SplashScreen: FC = () => {
       }
 
       if (user?.role === 'Customer') {
-        resetAndNavigate('DeliveryLogin');
+        resetAndNavigate('ProductDashboard');
       } else {
         resetAndNavigate('DeliveryDashboard');
       }

@@ -15,16 +15,17 @@ import IconEmail from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconPassword from 'react-native-vector-icons/Ionicons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import CustomButton from '@components/ui/CustomButton';
+import { resetAndNavigate } from '@utils/NavigationUtils';
 const DeliveryLogin: FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    console.log('Login')
+  const handleLogin = async() => {
     setLoading(true);
     try {
-      DeliveryLoginApi(email, password);
+    await DeliveryLoginApi(email, password);
+    resetAndNavigate('DeliveryDashboard');
     } catch (error) {
       Alert.alert('Login Failed');
       setLoading(true);
