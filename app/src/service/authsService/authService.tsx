@@ -15,19 +15,19 @@ export const CustomerLoginApi = async (phone: string) => {
 };
 
 export const DeliveryLoginApi = async (email: string, password: string) => {
-try {
-  const response = await axios.post(`${BASE_URL}/delivery/login`, {
-    email,
-    password,
-  });
-  const { accessToken, refreshToken, deliveryPartner } = response.data;
-  tokenStorsge.set('accessToken', accessToken);
-  tokenStorsge.set('refreshToken', refreshToken);
-  const { setUser } = useAuthStore.getState();
-  setUser(deliveryPartner);
-} catch (error) {
-  console.log(error)
-}
+  try {
+    const response = await axios.post(`${BASE_URL}/delivery/login`, {
+      email,
+      password,
+    });
+    const { accessToken, refreshToken, deliveryPartner } = response.data;
+    tokenStorsge.set('accessToken', accessToken);
+    tokenStorsge.set('refreshToken', refreshToken);
+    const { setUser } = useAuthStore.getState();
+    setUser(deliveryPartner);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export const refetchUser = async (setUser: any) => {

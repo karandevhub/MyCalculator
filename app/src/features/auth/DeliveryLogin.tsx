@@ -21,11 +21,11 @@ const DeliveryLogin: FC = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async() => {
+  const handleLogin = async () => {
     setLoading(true);
     try {
-    await DeliveryLoginApi(email, password);
-    resetAndNavigate('DeliveryDashboard');
+      await DeliveryLoginApi(email, password);
+      resetAndNavigate('DeliveryDashboard');
     } catch (error) {
       Alert.alert('Login Failed');
       setLoading(true);
@@ -89,7 +89,7 @@ const DeliveryLogin: FC = () => {
             />
             <CustomButton
               onPress={handleLogin}
-              title='Login'
+              title="Login"
               loading={loading}
               disabled={email.length === 0 || password.length === 0}
             />
