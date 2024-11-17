@@ -18,6 +18,7 @@ const generateToken = (user) => {
 };
 
 export const loginCustomer = async (req, reply) => {
+  console.log("called")
   try {
     const { phone } = req.body;
     let customer = await Customer.findOne({ phone });
