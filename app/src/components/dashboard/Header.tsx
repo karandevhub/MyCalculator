@@ -43,7 +43,12 @@ const Header: FC<{ showNotice: () => void }> = ({ showNotice }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.flexRow}>
-          <CustomText variant="h8" numberOfLines={1} fontFamily={Fonts.Bold} style={styles.text}>
+          <CustomText
+            variant="h8"
+            numberOfLines={1}
+            fontFamily={Fonts.Bold}
+            style={styles.text}
+          >
             {user?.address || 'Knowhere, Somewhere 😊'}
           </CustomText>
           <Icon

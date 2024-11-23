@@ -1,4 +1,11 @@
-import { Platform, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import {
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import { noticeheight } from '@utils/Scaling';
 import CustomText from '@components/ui/CustomText';

@@ -1,53 +1,42 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
-import { StickyView, useCollapsibleContext } from '@r0b0t3d/react-native-collapsible';
+import {
+  StickyView,
+  useCollapsibleContext,
+} from '@r0b0t3d/react-native-collapsible';
 import { Colors } from '@utils/Constants';
 import Animated, {
   interpolate,
   useAnimatedStyle,
   withTiming,
-
 } from 'react-native-reanimated';
 import Searchbar from './Searchbar';
-
 
 const StickySearchBar = () => {
   const { scrollY } = useCollapsibleContext();
 
   const animatedShadowStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      scrollY.value,
-      [0, 140],
-      [0, 1],
-
-    );
+    const opacity = interpolate(scrollY.value, [0, 140], [0, 1]);
 
     return {
-      opacity: withTiming(opacity, { duration: 150 }) // Smooth transition
+      opacity: withTiming(opacity, { duration: 150 }), // Smooth transition
     };
   });
 
   const animatedBackgroundStyle = useAnimatedStyle(() => {
-    const opacity = interpolate(
-      scrollY.value,
-      [0, 80],
-      [0, 1],
-    );
+    const opacity = interpolate(scrollY.value, [0, 80], [0, 1]);
 
     return {
-      backgroundColor: `rgba(255,255,255,${withTiming(opacity, { duration: 150 })})`
+      backgroundColor: `rgba(255,255,255,${withTiming(opacity, {
+        duration: 150,
+      })})`,
     };
   });
 
   return (
     <StickyView style={[styles.container, animatedBackgroundStyle]}>
       <Searchbar />
-      <Animated.View
-        style={[
-          styles.shadow,
-          animatedShadowStyle
-        ]}
-      />
+      <Animated.View style={[styles.shadow, animatedShadowStyle]} />
     </StickyView>
   );
 };
@@ -94,5 +83,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
-  }
+  },
 });
