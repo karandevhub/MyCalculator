@@ -1,43 +1,50 @@
-import { Animated, StyleSheet, Text, TouchableOpacity, View, ViewStyle } from 'react-native'
-import React, { FC, ReactNode } from 'react'
-
+import {
+  Animated,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
+import React, { FC, ReactNode } from 'react';
 
 interface ScalePressProps {
-    onPress?: () => void;
-    children: ReactNode
-    style?: ViewStyle
+  onPress?: () => void;
+  children: ReactNode;
+  style?: ViewStyle;
 }
 const ScalePress: FC<ScalePressProps> = ({ onPress, children, style }) => {
+  const scalevalue = new Animated.Value(1);
+  const onPressIn = () => {
+    Animated.spring(scalevalue, {
+      toValue: 0.92,
+      useNativeDriver: true,
+    }).start();
+  };
 
-    const scalevalue = new Animated.Value(1)
-    const onPressIn = () => {
-        Animated.spring(scalevalue, {
-            toValue: 0.92,
-            useNativeDriver: true
-        }).start()
-    }
+  const onPressOut = () => {
+    Animated.spring(scalevalue, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
+  return (
+    <TouchableOpacity
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}
+      onPress={onPress}
+      activeOpacity={1}
+      style={{ ...style }}
+    >
+      <Animated.View
+        style={[{ transform: [{ scale: scalevalue }], width: '100%' }]}
+      >
+        {children}
+      </Animated.View>
+    </TouchableOpacity>
+  );
+};
 
-    const onPressOut = () => {
-        Animated.spring(scalevalue, {
-            toValue: 1,
-            useNativeDriver: true
-        }).start()
-    }
-    return (
-        <TouchableOpacity
-            onPressIn={onPressIn}
-            onPressOut={onPressOut}
-            onPress={onPress}
-            activeOpacity={1}
-            style={{ ...style }}
-        >
-            <Animated.View style={[{ transform: [{ scale: scalevalue }], width: "100%" }]}>
-                {children}
-            </Animated.View>
-        </TouchableOpacity>
-    )
-}
+export default ScalePress;
 
-export default ScalePress
-
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

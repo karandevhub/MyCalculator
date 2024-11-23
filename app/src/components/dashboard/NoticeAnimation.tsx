@@ -1,9 +1,15 @@
-import { StyleSheet, View, Animated as RNAnimated, Platform, StatusBar } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Animated as RNAnimated,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import React, { FC } from 'react';
 import { noticeheight } from '@utils/Scaling';
 import Notice from '@components/dashboard/Notice';
 
-const NOTICE_HEIGHT = noticeheight +12;
+const NOTICE_HEIGHT = noticeheight + 12;
 
 interface NoticeAnimationProps {
   noticePosition: RNAnimated.Value;
