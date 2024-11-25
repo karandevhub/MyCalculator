@@ -13,7 +13,7 @@ export const getAllCategories = async () => {
 
 export const getProductsByCategoryId = async (id: string) => {
   try {
-    const response = await axios.post(`${BASE_URL}/products/${id}`);
+    const response = await axios.get(`${BASE_URL}/products/${id}`);
     return response.data;
   } catch (error) {
     console.log('Error products fetching', error);

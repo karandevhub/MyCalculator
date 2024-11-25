@@ -3,7 +3,8 @@ import React, { FC, useEffect, useState } from 'react';
 import CustomHeader from '@components/ui/CustomHeader';
 import { Colors } from '@utils/Constants';
 import Sidebar from './Sidebar';
-import { getAllCategories } from '@service/productService/productService';
+import { getAllCategories, getProductsByCategoryId } from '@service/productService/productService';
+import ProductList from './ProductList';
 
 const ProductCategories: FC = () => {
   const [categories, setCategories] = useState<any[]>([]);
@@ -31,6 +32,27 @@ const ProductCategories: FC = () => {
     fetchCategories();
   }, []);
 
+
+  const fetchProducts = async (categoryId: string) => {
+    setProductsLoading(true);
+    try {
+      const data = await getProductsByCategoryId(categoryId);
+      setProducts(data);
+    } catch (error) {
+      console.error('Error fetching products', error);
+    } finally {
+      setProductsLoading(false);
+    }
+  };
+
+
+  useEffect(() => {
+    if (selectedCategory?._id) {
+      fetchProducts(selectedCategory?._id);
+    }
+  }, [selectedCategory])
+
+
   return (
     <View style={styles.mainConatiner}>
       <CustomHeader
@@ -47,6 +69,11 @@ const ProductCategories: FC = () => {
             onCategoryPress={(category: any) => setSelectedCategory(category)}
           />
         )}
+        {productsLoading ?
+          (<ActivityIndicator size='large' color={Colors.border} style={styles.center} />) :
+          (<ProductList data={products || []} />)
+
+        }
       </View>
     </View>
   );
@@ -63,7 +90,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent:"center"
   },
   center: {
     flex: 1,
