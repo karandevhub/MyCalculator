@@ -9,7 +9,7 @@ import Header from './Header';
 
 const AnimatedHeader: FC<{ showNotice: () => void }> = ({ showNotice }) => {
   const { scrollY } = useCollapsibleContext();
- 
+
   const headerAnimatedStyle = useAnimatedStyle(() => {
     const opacity = interpolate(scrollY.value, [0, 120], [1, 0]);
     return { opacity };

@@ -25,7 +25,10 @@ import CustomText from '@components/ui/CustomText';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { Fonts } from '@utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import Animated, {
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 const ProductDashboard: FC = () => {
   const { user } = useAuthStore();
@@ -33,7 +36,7 @@ const ProductDashboard: FC = () => {
   const noticePosition = useRef(new RNAnimated.Value(-NOTICE_HEIGHT)).current;
   const { scrollY, expand } = useCollapsibleContext();
 
-  console.log(scrollY.value)
+  console.log(scrollY.value);
   const previousScroll = useRef<number>(0);
   const backToTopStyle = useAnimatedStyle(() => {
     const isScrollingUp =
@@ -73,7 +76,6 @@ const ProductDashboard: FC = () => {
   }, []);
 
   return (
-
     <NoticeAnimation noticePosition={noticePosition}>
       <View style={styles.contentContainer}>
         <Visuals />
