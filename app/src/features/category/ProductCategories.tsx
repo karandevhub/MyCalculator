@@ -3,8 +3,12 @@ import React, { FC, useEffect, useState } from 'react';
 import CustomHeader from '@components/ui/CustomHeader';
 import { Colors } from '@utils/Constants';
 import Sidebar from './Sidebar';
-import { getAllCategories, getProductsByCategoryId } from '@service/productService/productService';
+import {
+  getAllCategories,
+  getProductsByCategoryId,
+} from '@service/productService/productService';
 import ProductList from './ProductList';
+import withCart from '@features/cart/withCart';
 
 const ProductCategories: FC = () => {
   const [categories, setCategories] = useState<any[]>([]);
@@ -32,7 +36,6 @@ const ProductCategories: FC = () => {
     fetchCategories();
   }, []);
 
-
   const fetchProducts = async (categoryId: string) => {
     setProductsLoading(true);
     try {
@@ -45,13 +48,11 @@ const ProductCategories: FC = () => {
     }
   };
 
-
   useEffect(() => {
     if (selectedCategory?._id) {
       fetchProducts(selectedCategory?._id);
     }
-  }, [selectedCategory])
-
+  }, [selectedCategory]);
 
   return (
     <View style={styles.mainConatiner}>
@@ -69,17 +70,21 @@ const ProductCategories: FC = () => {
             onCategoryPress={(category: any) => setSelectedCategory(category)}
           />
         )}
-        {productsLoading ?
-          (<ActivityIndicator size='large' color={Colors.border} style={styles.center} />) :
-          (<ProductList data={products || []} />)
-
-        }
+        {productsLoading ? (
+          <ActivityIndicator
+            size="large"
+            color={Colors.border}
+            style={styles.center}
+          />
+        ) : (
+          <ProductList data={products || []} />
+        )}
       </View>
     </View>
   );
 };
 
-export default ProductCategories;
+export default withCart(ProductCategories);
 
 const styles = StyleSheet.create({
   mainConatiner: {

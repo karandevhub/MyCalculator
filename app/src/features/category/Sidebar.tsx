@@ -58,7 +58,6 @@ const Sidebar: FC<SideBarProps> = ({
     transform: [{ translateY: indicatorPosition.value }],
   }));
 
-
   return (
     <GestureHandlerRootView style={{ width: '24%' }}>
       <View style={styles.sideBar}>
@@ -79,7 +78,7 @@ const Sidebar: FC<SideBarProps> = ({
                   style={[
                     styles.categoryButton,
                     selectedCategory === category &&
-                    styles.selectedCategoryButton,
+                      styles.selectedCategoryButton,
                   ]}
                   onPress={() => onCategoryPress(category)}
                 >
@@ -87,7 +86,7 @@ const Sidebar: FC<SideBarProps> = ({
                     style={[
                       styles.imageContainer,
                       selectedCategory?._id === category?._id &&
-                      styles.selectedImageContainer,
+                        styles.selectedImageContainer,
                     ]}
                   >
                     <Animated.Image
@@ -116,7 +115,7 @@ export default Sidebar;
 
 const styles = StyleSheet.create({
   sideBar: {
-    width:"100%",
+    width: '100%',
     backgroundColor: '#fff',
     borderWidth: 0.8,
     borderRightColor: '#eee',

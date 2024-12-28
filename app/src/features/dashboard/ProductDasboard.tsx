@@ -29,6 +29,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import withCart from '@features/cart/withCart';
 
 const ProductDashboard: FC = () => {
   const { user } = useAuthStore();
@@ -181,4 +182,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default withCollapsibleContext(ProductDashboard);
+export default withCart(withCollapsibleContext(ProductDashboard));
