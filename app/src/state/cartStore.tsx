@@ -13,7 +13,7 @@ interface CartStore {
   addItem: (item: any) => void;
   removeItem: (id: string | number) => void;
   clearCart: () => void;
-  getTotal: () => number;
+  getTotalPrice: () => number;
   getItemCount: (id: string | number) => number;
 }
 
@@ -64,7 +64,7 @@ export const useCartStore = create<CartStore>()(
         const currentItem = get().cart.find((item) => item?._id === id);
         return currentItem ? currentItem.count : 0;
       },
-      getTotal: () => {
+      getTotalPrice: () => {
         const total = get().cart.reduce(
           (sum, item) => sum + item.item.price * item.count,
           0,
