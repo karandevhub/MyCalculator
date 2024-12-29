@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { RFValue } from 'react-native-responsive-fontsize';
 import CustomText from './CustomText';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { goBack } from '@utils/NavigationUtils';
 
 const CustomHeader: FC<{ title: string; search?: boolean }> = ({
   title,
@@ -13,7 +14,7 @@ const CustomHeader: FC<{ title: string; search?: boolean }> = ({
   return (
     <SafeAreaView>
       <View style={styles.flexRow}>
-        <Pressable>
+        <Pressable onPress={()=>goBack()}>
           <Icon name="chevron-back" color={Colors.text} size={RFValue(16)} />
         </Pressable>
         <CustomText
